@@ -1,0 +1,14 @@
+# This docker compose file can be used to start up a statemodify notebook locally
+# for testing.
+services:
+  notebook:
+    container_name: <<blank>>-notebook
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/msd-live/jupyter/<<blank>>-notebook:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./data:/home/jovyan/data
+      - ./notebooks:/home/jovyan/notebooks
