@@ -4,47 +4,10 @@ on:
   push:
     branches:
       - main
+      - dev
+  repository_dispatch:
+    types: [trigger-build-dev, trigger-build-latest]
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # Step 2: Log in to GitHub Container Registry
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Step 3: Build and push Docker image.  We get the github default variables for
-      # repository owner (MSD-LIVE) and repository name (e.g., jupyter-notebook-statemodify)
-      # Then we convert owner name to lowercase (because the docker push requires lowercase)
-      # and we parse off the jupter-notebook- from the repo name and convert the tag to
-      # jupyter/$DEPLOYMENT_NAME-notebook:latest (e.g., jupyter/statemodify-notebook:latest).
-      - name: Build and push Docker image
-        run: |
-          REPO_NAME=${{ github.event.repository.name }}
-          DEPLOYMENT_NAME=${REPO_NAME#jupyter-notebook-}
-          REPO_OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          IMAGE_NAME="ghcr.io/${REPO_OWNER}/jupyter/${DEPLOYMENT_NAME}-notebook:latest"
-          docker build -t $IMAGE_NAME .
-          docker push $IMAGE_NAME
-
-      # Step 4: Sync notebooks folder to S3 bucket
-      - name: Sync notebooks folder to S3
-        uses: jakejarvis/s3-sync-action@master
-        with:
-          args: --delete
-        env:
-          SOURCE_DIR: "notebooks"
-          DEST_DIR: "notebooks"
-          AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "us-west-2"
+  call-parent-build:
+    uses: msd-live/devops-common/.github/workflows/notebook-image-build.yml@main
