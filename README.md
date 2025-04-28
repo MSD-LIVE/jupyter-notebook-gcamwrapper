@@ -10,19 +10,20 @@ to pull from s3 if you want to test locally**
 
 ## Testing the notebook locally
 
-1. Get the data
+1. Get the data.  Copy or link the gcam-core/input folder as the `data` folder or
+   you can retrieve it from S3 using:
 
    ```bash
-   # make sure you are in the jupyter-notebook-<<blank>> folder
+   # make sure you are in the jupyter-notebook-gcamwrapper folder
    mkdir data
    cd data
-   aws s3 cp s3://<<blank>>-notebook-bucket/data . --recursive
+   aws s3 cp s3://gcamwrapper-notebook-bucket/data . --recursive
 
    ```
 
 2. Start the notebook via docker compose
    ```bash
-   # make sure you are in the jupyter-notebook-<<blank>> folder
+   # make sure you are in the jupyter-notebook-gcamwrapper folder
    docker compose up
    ```
 

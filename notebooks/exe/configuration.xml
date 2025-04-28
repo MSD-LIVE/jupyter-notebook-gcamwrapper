@@ -5,8 +5,8 @@
 		<Value name="BatchFileName">batch_ag.xml</Value>
 		<Value name="policy-target-file">../../data/policy/forcing_target_4p5.xml</Value>
 		<Value name="GHGInputFileName">../../data/magicc/inputs/input_gases.emk</Value>
-		<Value write-output="1" append-scenario-name="0" name="xmldb-location">./output/database_basexdb</Value>
-		<Value write-output="1" append-scenario-name="0" name="restart">./restart/restart</Value>
+		<Value write-output="0" append-scenario-name="0" name="xmldb-location">../output/database_basexdb</Value>
+		<Value write-output="0" append-scenario-name="0" name="restart">./restart/restart</Value>
 		<Value write-output="0" append-scenario-name="1" name="xmlDebugFileName">debug.xml</Value>
 		<Value write-output="0" append-scenario-name="0" name="climatFileName">gas.emk</Value>
 		<Value write-output="0" append-scenario-name="1" name="costCurvesOutputFileName">cost_curves.xml</Value>
@@ -22,7 +22,6 @@
 		<Value name = "resources">../../data/gcamdata/xml/resources.xml</Value>
 		<Value name = "energy_supply">../../data/gcamdata/xml/en_supply.xml</Value>
 		<Value name = "energy_transformation">../../data/gcamdata/xml/en_transformation.xml</Value>
-		<!--Value name = "electricity">../../data/gcamdata/xml/electricity.xml</Value-->
 		<Value name = "elec_water_base">../../data/gcamdata/xml/electricity_water.xml</Value>
 		<Value name = "heat">../../data/gcamdata/xml/heat.xml</Value>
 		<Value name = "hydrogen">../../data/gcamdata/xml/hydrogen.xml</Value>
@@ -31,12 +30,16 @@
 		<Value name = "industry_income_elas">../../data/gcamdata/xml/other_industry_incelas_gssp2.xml</Value>
  		<Value name = "iron_steel">../../data/gcamdata/xml/iron_steel.xml</Value>
 		<Value name = "iron_steel_income_elas">../../data/gcamdata/xml/iron_steel_incelas_gssp2.xml</Value>   
+		<Value name = "iron_steel trade">../../data/gcamdata/xml/iron_steel_trade.xml</Value>
  		<Value name = "Off_road">../../data/gcamdata/xml/Off_road.xml</Value>
 		<Value name = "Off_road_income_elas">../../data/gcamdata/xml/Off_road_incelas_gssp2.xml</Value>  
  		<Value name = "chemical">../../data/gcamdata/xml/chemical.xml</Value>
 		<Value name = "chemical_income_elas">../../data/gcamdata/xml/chemical_incelas_gssp2.xml</Value>   
  		<Value name = "aluminum">../../data/gcamdata/xml/aluminum.xml</Value>
 		<Value name = "aluminum_income_elas">../../data/gcamdata/xml/aluminum_incelas_gssp2.xml</Value> 
+ 		<Value name = "paper">../../data/gcamdata/xml/paper.xml</Value>
+		<Value name = "paper_income_elas">../../data/gcamdata/xml/paper_incelas_gssp2.xml</Value> 
+		<Value name = "food_processing">../../data/gcamdata/xml/food_processing.xml</Value> 
 		<Value name = "cement">../../data/gcamdata/xml/cement.xml</Value>
 		<Value name = "cement_income_elas">../../data/gcamdata/xml/cement_incelas_gssp2.xml</Value>
 		<Value name = "fertilizer_energy">../../data/gcamdata/xml/en_Fert.xml</Value>
@@ -45,6 +48,7 @@
 		<Value name = "transportation">../../data/gcamdata/xml/transportation_UCD_CORE.xml</Value>
 		<Value name = "carbon_content">../../data/gcamdata/xml/Ccoef.xml</Value>
 		<Value name = "carbon_storage">../../data/gcamdata/xml/Cstorage.xml</Value>
+        <Value name = "wind_update">../../data/gcamdata/xml/onshore_wind.xml</Value>
 
 
 		<Value name = "ag_base">../../data/gcamdata/xml/ag_For_Past_bio_base_IRR_MGMT.xml</Value>
@@ -61,11 +65,12 @@
 		<Value name = "protected_land2">../../data/gcamdata/xml/protected_land_input_2.xml</Value>
 		<Value name = "protected_land3">../../data/gcamdata/xml/protected_land_input_3.xml</Value>
 		<Value name = "demand">../../data/gcamdata/xml/ag_an_demand_input.xml</Value>
+		<Value name = "demand_paper">../../data/gcamdata/xml/paper_delete_ag_demand.xml</Value>
 		<Value name = "bio_trade">../../data/gcamdata/xml/bio_trade.xml</Value>
 		<Value name = "ag_trade">../../data/gcamdata/xml/ag_trade.xml</Value>
+		<Value name = "ag_storage">../../data/gcamdata/xml/ag_storage.xml</Value>
 
 		<Value name = "unlim_supply_water">../../data/gcamdata/xml/unlimited_water_supply.xml</Value>
-		<!--Value name = "water_supply">../../data/gcamdata/xml/water_supply_constrained.xml</Value-->
 		<Value name = "water_desal">../../data/gcamdata/xml/desalination.xml</Value>
 		<Value name = "water_td">../../data/gcamdata/xml/water_td.xml</Value>
 		<Value name = "efw_coefs">../../data/gcamdata/xml/EFW_input_coefs.xml</Value>
@@ -79,7 +84,16 @@
 		<Value name = "municipal_water">../../data/gcamdata/xml/water_demand_municipal.xml</Value>
 		<Value name = "primary_ene_water">../../data/gcamdata/xml/water_demand_primary.xml</Value>
 
-        <Value name = "wind_update">../../data/gcamdata/xml/onshore_wind.xml</Value>
+		<Value name = "ind_urb_proc">../../data/gcamdata/xml/ind_urb_processing_sectors.xml</Value>
+		<Value name = "macro">../../data/gcamdata/xml/socioeconomics_macro.xml</Value>
+		
+		<Value name = "bio_feedstock_limit">../../data/gcamdata/xml/liquids_limits.xml</Value>
+		<Value name = "bio_elec_w_feed_limit">../../data/gcamdata/xml/water_elec_liquids_limits.xml</Value>
+		<Value name = "bio_externality">../../data/gcamdata/xml/bio_externality.xml</Value>
+        <Value name = "gas_trade">../../data/gcamdata/xml/gas_trade.xml</Value>
+
+        <Value name = "prune_ag">../../data/gcamdata/xml/prune_empty_ag.xml</Value>
+
 		<Value name = "solver">../../data/solution/cal_broyden_config.xml</Value>
 		
 	</ScenarioComponents>
@@ -92,6 +106,8 @@
 	</Strings>
 	<Bools>
 		<Value name="CalibrationActive">1</Value>
+		<!-- Fixed GDP will calibrate to exogenous path -->
+		<Value name="FixedGDP-Path">1</Value>
 		<Value name="BatchMode">0</Value>
 		<Value name="find-path">0</Value>
 		<Value name="createCostCurve">0</Value>
