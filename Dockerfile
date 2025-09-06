@@ -3,7 +3,7 @@ FROM ghcr.io/msd-live/jupyter/r-notebook:latest AS gcam_dev
 RUN git clone --depth 1 --branch gcam-v7.1 https://github.com/JGCRI/gcam-core.git /home/jovyan/gcam-core
 RUN cd /home/jovyan/gcam-core && \
     git submodule update --init cvs/objects/climate/source/hector
-RUN git clone --depth 1 --branch gcam-v7.1 https://github.com/JGCRI/gcamwrapper.git /home/jovyan/gcamwrapper
+RUN git clone --depth 1 --branch main https://github.com/JGCRI/gcamwrapper.git /home/jovyan/gcamwrapper
 RUN conda install -y tbb-devel=2020.2 libboost-headers
 RUN sed -i 's/task\* next_offloaded/tbb::task* next_offloaded/' /opt/conda/include/tbb/task.h
 RUN cd /opt/conda/include && \
