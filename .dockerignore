@@ -1,3 +1,2 @@
-
-.git
-data
+# Ignore all files in the data folder
+data/*
