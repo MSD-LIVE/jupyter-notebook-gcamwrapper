@@ -4,7 +4,7 @@ RUN git clone --depth 1 --branch gcam-v7.1 https://github.com/JGCRI/gcam-core.gi
 RUN cd /home/jovyan/gcam-core && \
     git submodule update --init cvs/objects/climate/source/hector
 RUN git clone --depth 1 --branch main https://github.com/JGCRI/gcamwrapper.git /home/jovyan/gcamwrapper
-RUN conda install -y tbb-devel=2020.2 libboost-headers
+RUN conda install -y 'tbb-devel<=2021.11' libboost-headers
 RUN sed -i 's/task\* next_offloaded/tbb::task* next_offloaded/' /opt/conda/include/tbb/task.h
 RUN cd /opt/conda/include && \
     wget https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.gz -O - | \
@@ -13,6 +13,7 @@ RUN wget https://github.com/JGCRI/modelinterface/releases/download/v5.4/jars.zip
     unzip jars.zip -d /opt/conda/lib/ && \
     rm jars.zip
 ENV CXX='x86_64-conda-linux-gnu-g++ -fPIC' \
+    CC='x86_64-conda-linux-gnu-gcc' \
     EIGEN_INCLUDE=/opt/conda/include/eigen-3.4.0 \
     BOOST_INCLUDE=/opt/conda/include \
     BOOST_LIB=/opt/conda/lib \
@@ -47,7 +48,7 @@ RUN cd /home/jovyan/gcamwrapper && \
     pip install .
 
 FROM ghcr.io/msd-live/jupyter/datascience-notebook:latest AS gcamwrapper_deploy
-RUN conda install -y tbb=2020.2 libboost-python=1.85.0 pandas
+RUN conda install -y 'tbb-devel<=2021.11' libboost-python=1.85.0 pandas
 RUN pip install matplotlib
 COPY --from=gcamwrapper_r_dev /opt/conda/lib/R/library /opt/conda/lib/R/library
 COPY --from=gcamwrapper_py_dev /opt/conda/lib/python3.11/site-packages/gcam*.so /opt/conda/lib/python3.11/site-packages/
