@@ -10,4 +10,4 @@ on:
 
 jobs:
   call-parent-build:
-    uses: msd-live/devops-common/.github/workflows/notebook-image-build.yml@main
+    uses: msd-live/build-jupyter-notebook/.github/workflows/notebook-image-build.yml@main
