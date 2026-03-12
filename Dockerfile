@@ -3,7 +3,10 @@ FROM ghcr.io/msd-live/jupyter/datascience-notebook:latest AS gcam_dev
 RUN git clone --depth 1 --branch gcam-v7.1 https://github.com/JGCRI/gcam-core.git /home/jovyan/gcam-core
 RUN cd /home/jovyan/gcam-core && \
     git submodule update --init cvs/objects/climate/source/hector
-RUN git clone --depth 1 --branch main https://github.com/JGCRI/gcamwrapper.git /home/jovyan/gcamwrapper
+# Pin gcamwrapper to gcam-v7.1 to match gcam-core v7.1. Using --branch main pulls v8.x+
+# which introduces NationalAccount::getNationalAccount() — an API that does not exist in
+# gcam-core v7.1 — causing a compile error in src/query_processor_base.cpp.
+RUN git clone --depth 1 --branch gcam-v7.1 https://github.com/JGCRI/gcamwrapper.git /home/jovyan/gcamwrapper
 RUN conda install -y 'tbb-devel<=2021.11' libboost-headers
 RUN sed -i 's/task\* next_offloaded/tbb::task* next_offloaded/' /opt/conda/include/tbb/task.h
 RUN cd /opt/conda/include && \
@@ -26,6 +29,11 @@ ENV CXX='x86_64-conda-linux-gnu-g++ -fPIC' \
     CCEXTRA=-fPIC \
     HAVE_JAVA=0
 RUN sed -i 's/HAVE_JAVA = 1/HAVE_JAVA = 0/' /home/jovyan/gcam-core/cvs/objects/build/linux/configure.gcam
+# Fix missing boost headers: "error: 'disable_if' in namespace 'boost' does not name a template type"
+RUN sed -i '1i #include <boost/core/enable_if.hpp>' /home/jovyan/gcam-core/cvs/objects/util/base/include/xml_parse_helper.h
+# Fix linker glibc mismatch: "/opt/conda/lib/libgcc_s.so: undefined reference to 'memcpy@GLIBC_2.14'"
+RUN rm -f /opt/conda/lib/libgcc_s.so*
+
 #USER root
 RUN cd /home/jovyan/gcam-core && \
     make -j 4 gcam
